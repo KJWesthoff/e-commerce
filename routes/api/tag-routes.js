@@ -10,7 +10,6 @@ router.get('/', (req, res) => {
     include: [
       {
         model: ProductTag,
-        
       }
     ]
   }).then(dbRes => res.json(dbRes))
