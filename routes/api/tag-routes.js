@@ -7,11 +7,16 @@ router.get('/', (req, res) => {
   // find all tags
   // be sure to include its associated Product data
   Tag.findAll({
+    order: [['id', 'ASC']],
     include: [
       {
-        model: ProductTag,
+        model: ProductTag,    // Cascade throug the ProductTag through table to get the product
+        include: {
+          model: Product,
+        }
       }
-    ]
+    ],
+ 
   }).then(dbRes => res.json(dbRes))
   .catch(err => {
     console.log(err);
@@ -26,7 +31,8 @@ router.get('/:id', (req, res) => {
   Tag.findAll({
     include: [
       {
-        model: Product
+        model: Product,
+        include: {model: ProductTag}
       }
     ],
     where: {id: req.params.id}
