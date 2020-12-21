@@ -31,8 +31,10 @@ router.get('/:id', (req, res) => {
   Tag.findAll({
     include: [
       {
-        model: Product,
-        include: {model: ProductTag}
+        model: ProductTag,    // Cascade throug the ProductTag through table to get the product
+        include: {
+          model: Product,
+        }
       }
     ],
     where: {id: req.params.id}

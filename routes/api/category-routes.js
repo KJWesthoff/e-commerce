@@ -7,6 +7,7 @@ router.get('/', (req, res) => {
   // find all categories
    // be sure to include its associated Products
   Category.findAll({
+    order: [['id', 'ASC']],
     include: [{model:Product}]
   }).then(dbRes => res.json(dbRes))
   .catch(err => {
@@ -55,6 +56,7 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a category by its `id` value
+  console.log(req.body.category_name);
   Category.update(
     {
       category_name: req.body.category_name
